@@ -1,0 +1,1 @@
+alter table QUESTION alter column MODIFIED rename to gmt_modified;
