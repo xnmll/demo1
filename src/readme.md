@@ -1,6 +1,6 @@
-做什么：在线交流（论坛）系统
+### 做什么：在线交流（论坛）系统
 
-用什么：
+### 用什么：
 
 1. SpringBoot
 
@@ -40,9 +40,16 @@
 
     
 
+### 踩的坑：
+
+1. mac m1启动项目很慢： 修改hosts文件
+2. 配置文件有变化
 
 
-快捷键使用：
+
+
+
+### 快捷键使用：
 
 command + p 提示要传入什么参数
 
@@ -52,13 +59,17 @@ cmd shift f6 重命名
 
 ⌘ + ⌥ + V 提取变量
 
+cmd e 切换最近的编辑窗口
+
+option + command + L  格式化
 
 
 
 
 
 
-**Thymeleaf**的使用：
+
+### **Thymeleaf**的使用：
 
 pom导入依赖
 
@@ -82,25 +93,28 @@ public class helloController {
         return "hello"; //自动在templates里找hello模版
     }
 }
-```
-
-```
 @Component//仅仅把当前类初始化到spring容器的上下文
 ioc的体现，可以自动实例化对象到池子里
 
 @autowired//把spring容器里写好的一个实例加载到当前使用的上下文
+
+@Value("${a}") //去配置文件里读key为a的value ， 把它赋值到id
+private String id;
 ```
 
 
 
+### h2数据库的使用
 
 
-//github授权登陆
-
-1. 看官方文档：https://docs.github.com/en/developers/apps
-2. 
 
 
+
+
+
+### github授权登陆
+
+官方文档：https://docs.github.com/en/developers/apps
 
 流程：
 
@@ -127,7 +141,19 @@ The web application flow to authorize users for your app is:
 <li><a href="https://github.com/login/oauth/authorize?client_id=c12ba731ee2598f7e0c6&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登陆</a></li>
 ```
 
-2. 确认授权后 github 返回 http://localhost:8887/callback?code=060d8498e8add7c13cad&state=1
+2. 确认授权后 github 返回 http://localhost:8887/callback?code=060d8498e8add7c13cad&state=1AuthorizeController 
+3. 处理/callback请求 ， 由RequestParam获取参数code和state ，由@Value获取配置文件中的其他参数，把信息封装到accessDTO中，调用githubProvider.
+4. 使用getAccessToken，getUser模拟http请求，用okhttp把信息传进去。获得user信息
+
+5. 把创建必要的字段把信息保存到数据库中，实现持久登陆（使用h2数据库）
+
+
+
+
+
+
+
+### session和cookie的区别
 
 
 
