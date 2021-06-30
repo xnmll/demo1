@@ -63,7 +63,7 @@ cmd e 切换最近的编辑窗口
 
 option + command + L  格式化
 
-
+cmd + e 快速切换
 
 
 
@@ -158,6 +158,32 @@ The web application flow to authorize users for your app is:
 ### service层：不同模块间的组合
 
 ### 查询首页列表的流程和实现
+
+
+
+### 分页业务逻辑
+
+1. indexcontroller里面加入requestparam的参数 page size 并且设置默认值
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
