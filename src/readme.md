@@ -65,9 +65,9 @@ option + command + L  格式化
 
 cmd + e 快速切换
 
+cmd + f12 展示方法列表
 
-
-
+cmd + alt + b展示所有子类
 
 ### **Thymeleaf**的使用：
 
