@@ -69,6 +69,8 @@ cmd + f12 展示方法列表
 
 cmd + alt + b展示所有子类
 
+Alt + f7 所有引用
+
 ### **Thymeleaf**的使用：
 
 pom导入依赖
