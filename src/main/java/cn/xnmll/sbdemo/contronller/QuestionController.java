@@ -1,8 +1,8 @@
 package cn.xnmll.sbdemo.contronller;
 
-import cn.xnmll.sbdemo.dto.CommentCreateDTO;
 import cn.xnmll.sbdemo.dto.CommentDTO;
 import cn.xnmll.sbdemo.dto.QuestionDTO;
+import cn.xnmll.sbdemo.enums.CommentTypeEnum;
 import cn.xnmll.sbdemo.service.CommentService;
 import cn.xnmll.sbdemo.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class QuestionController {
     public String question(@PathVariable(name="id") Long id,
                     Model model){
         QuestionDTO questionDTO = questionService.getById(id);
-        List<CommentDTO> comments = commentService.listByQuestionId(id);
+        List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
         model.addAttribute("comments",comments);
