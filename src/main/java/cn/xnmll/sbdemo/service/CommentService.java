@@ -4,16 +4,12 @@ import cn.xnmll.sbdemo.dto.CommentDTO;
 import cn.xnmll.sbdemo.enums.CommentTypeEnum;
 import cn.xnmll.sbdemo.exception.CustomizeErrorCode;
 import cn.xnmll.sbdemo.exception.CustomizeException;
-import cn.xnmll.sbdemo.mapper.CommentMapper;
-import cn.xnmll.sbdemo.mapper.QuestionExtMapper;
-import cn.xnmll.sbdemo.mapper.QuestionMapper;
-import cn.xnmll.sbdemo.mapper.UserMapper;
+import cn.xnmll.sbdemo.mapper.*;
 import cn.xnmll.sbdemo.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +31,9 @@ public class CommentService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private CommentExtMapper commentExtMapper;
+
     @Transactional
     public void insert(Comment comment) {
         if (comment.getParentId() == null || comment.getParentId() == 0) {
@@ -49,6 +48,11 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
             commentMapper.insert(comment);
+
+            Comment parentComment = new Comment();
+            parentComment.setId(comment.getParentId());
+            parentComment.setCommentCount(1);
+            commentExtMapper.incCommentCount(parentComment);
         }else{
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
             if (question == null) {

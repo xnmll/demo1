@@ -68,6 +68,19 @@ body {
     cursor: pointer;
 }
 
+.meun .comment-icon {
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.question-tag {
+    margin-right: 5px;
+}
+
+.meun .comment-icon :hover {
+    color: #499ef3;
+}
+
 .meun .active {
     color: #499ef3;
 }
@@ -90,6 +103,18 @@ body {
     margin-bottom: 15px;
 }
 
+.wechat {
+    width: 100%;
+}
+
 .sub-btn {
     margin: 10px 0;
+}
+
+.question-related {
+    line-height: 20px;
+    font-size: 12px;
+    margin-left: 0;
+    list-style: none;
+    padding-left: 0;
 }
