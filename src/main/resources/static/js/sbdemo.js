@@ -105,3 +105,22 @@ function comment(e) {
     comment2target(commentId, 2, content);
 }
 
+function selectTag(e) {
+    var pre = $("#tag").val();
+    var value = e.getAttribute("data-tag");
+    if (pre.indexOf(value) == -1) {
+        if (pre) {
+            $("#tag").val(pre + ',' + value);
+        } else {
+            $("#tag").val(value);
+        }
+    }
+}
+function showSelectTag() {
+    $("#select-tag").show();
+}
+
+
+
+
+

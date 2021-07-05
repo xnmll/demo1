@@ -26,7 +26,14 @@
             <div class="media-body">
                 <h4 class="media-heading" th:text="${question.title}"></h4>
                 <br>
-                <span class="text-desc"><span th:text="${question.commentCount}"></span>个回复 · <span th:text="${question.viewCount}"></span>次浏览 · <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
+                <span class="text-desc"><span th:text="${question.commentCount}"></span>个回复 · <span
+                        th:text="${question.viewCount}"></span>次浏览 · <span
+                        th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span> ·
+                    <a th:href="@{'/publish/'+${question.id}}" class="sbmenu"
+                       th:if="${session.user != null && session.user.id == question.creator}">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span>
+                </a>
+                </span>
             </div>
         </div>
         <nav aria-label="Page navigation">
@@ -41,7 +48,7 @@
                         <span aria-hidden="true">&lt;</span>
                     </a>
                 </li>
-                <li th:each="page : ${pagination.pages}"  th:class="${pagination.page == page}?'active':''">
+                <li th:each="page : ${pagination.pages}" th:class="${pagination.page == page}?'active':''">
                     <a th:text="${page}" th:href="@{'/profile/'+${section}(page=${page})}"></a>
                 </li>
                 <li th:if="${pagination.showNext}">
@@ -59,7 +66,8 @@
     </div>
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
         <div class="list-group mg-mag">
-            <a href="/profile/questions" th:class="${section == 'questions'}?'active list-group-item':'list-group-item'">
+            <a href="/profile/questions"
+               th:class="${section == 'questions'}?'active list-group-item':'list-group-item'">
                 我的问题 <span class="badge">12</span>
             </a>
             <a href="/profile/replies" th:class="${section == 'replies'}?'active list-group-item':'list-group-item'">
