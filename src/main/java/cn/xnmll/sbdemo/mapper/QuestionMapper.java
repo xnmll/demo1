@@ -1,5 +1,6 @@
 package cn.xnmll.sbdemo.mapper;
 
+import cn.xnmll.sbdemo.dto.QuestionQueryDTO;
 import cn.xnmll.sbdemo.model.Question;
 import cn.xnmll.sbdemo.model.QuestionExample;
 import java.util.List;
@@ -134,4 +135,6 @@ public interface QuestionMapper {
      * @mbg.generated Thu Aug 05 22:34:40 CST 2021
      */
     int updateByPrimaryKey(Question record);
+
+
 }

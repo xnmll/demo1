@@ -31,10 +31,12 @@ public class IndexController {
 //@RequestParam将查询字符串参数的值绑定name到方法的name参数中greeting()。此查询字符串参数不是required。如果请求中不存在defaultValue，World则使用of 。name参数的值被添加到一个Model对象中，最终使其可被视图模板访问。
     public String index(Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
-                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
+                        @RequestParam(name = "size", defaultValue = "5") Integer size,
+                        @RequestParam(name = "search", required = false) String search) {
 
-        PaginationDTO pagination = questionService.list(page, size);
+        PaginationDTO pagination = questionService.list(search, page, size);
         model.addAttribute("pagination", pagination);
+        model.addAttribute("search",search);
         return "index";
     }
 }

@@ -1,5 +1,6 @@
 package cn.xnmll.sbdemo.mapper;
 
+import cn.xnmll.sbdemo.dto.QuestionQueryDTO;
 import cn.xnmll.sbdemo.model.Question;
 import cn.xnmll.sbdemo.model.QuestionExample;
 import org.apache.ibatis.annotations.Param;
@@ -9,6 +10,12 @@ import java.util.List;
 
 public interface QuestionExtMapper {
     List<Question> selectRelated(Question question);
+
     int incView(Question record);
+
     int incCommentCount(Question record);
+
+    int countBySearch(QuestionQueryDTO questionQueryDTO);
+
+    List<Question> selectBySearch(QuestionQueryDTO questionQueryDTO);
 }

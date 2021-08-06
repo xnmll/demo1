@@ -2,6 +2,7 @@ package cn.xnmll.sbdemo.service;
 
 import cn.xnmll.sbdemo.dto.PaginationDTO;
 import cn.xnmll.sbdemo.dto.QuestionDTO;
+import cn.xnmll.sbdemo.dto.QuestionQueryDTO;
 import cn.xnmll.sbdemo.exception.CustomizeErrorCode;
 import cn.xnmll.sbdemo.exception.CustomizeException;
 import cn.xnmll.sbdemo.mapper.QuestionExtMapper;
@@ -33,21 +34,37 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO list(String search, Integer page, Integer size) {
+
+        if (StringUtils.isNoneBlank(search)) {
+            String[] tags = StringUtils.split(search, " ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
+
 
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalPage;
-        Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
 
         if (totalCount % size == 0) totalPage = totalCount / size;
-        else totalPage = totalCount / size + 1;
-        if (page < 1) page = 1;
-        if (page > totalPage) page = totalPage;
+        else {
+            totalPage = totalCount / size + 1;
+        }
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPage) {
+            page = totalPage;
+        }
         paginationDTO.setPagination(totalPage, page);
         Integer offset = size * (page - 1);
         QuestionExample example = new QuestionExample();
         example.setOrderByClause("gmt_create desc");
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example, new RowBounds(offset, size));
+        questionQueryDTO.setSize(size);
+        questionQueryDTO.setPage(offset);
+        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -68,10 +85,17 @@ public class QuestionService {
         example.createCriteria()
                 .andCreatorEqualTo(userId);
         Integer totalCount = (int) questionMapper.countByExample(example);
-        if (totalCount % size == 0) totalPage = totalCount / size;
-        else totalPage = totalCount / size + 1;
-        if (page < 1) page = 1;
-        if (page > totalPage) page = totalPage;
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPage) {
+            page = totalPage;
+        }
         paginationDTO.setPagination(totalPage, page);
         Integer offset = size * (page - 1);
         QuestionExample example1 = new QuestionExample();
@@ -94,7 +118,9 @@ public class QuestionService {
 
     public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
-        if (question == null) throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        if (question == null) {
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -146,7 +172,7 @@ public class QuestionService {
         List<Question> questionList = questionExtMapper.selectRelated(question);
         List<QuestionDTO> collect = questionList.stream().map(q -> {
             QuestionDTO dto = new QuestionDTO();
-            BeanUtils.copyProperties(q,dto);
+            BeanUtils.copyProperties(q, dto);
             return dto;
         }).collect(Collectors.toList());
         return collect;
