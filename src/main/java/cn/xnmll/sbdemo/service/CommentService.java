@@ -71,6 +71,7 @@ public class CommentService {
             if (question == null) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
+            comment.setCommentCount(0);
             commentMapper.insert(comment);
             question.setCommentCount(1);
             questionExtMapper.incCommentCount(question);
@@ -82,6 +83,9 @@ public class CommentService {
     }
 
     private void createNotify(Comment comment, Long receiver, String notificatorName, String outerTitle, NotificationTypeEnum typeEnum, Long outerId) {
+        if (receiver.equals(comment.getCommentator())) {
+            return;
+        }
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         notification.setType(typeEnum.getType());
@@ -102,7 +106,9 @@ public class CommentService {
                 .andTypeEqualTo(type.getType());
         commentExample.setOrderByClause("gmt_create desc");
         List<Comment> comments = commentMapper.selectByExample(commentExample);
-        if (comments.size() == 0) return new ArrayList<>();
+        if (comments.size() == 0) {
+            return new ArrayList<>();
+        }
         Set<Long> commentors = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
         List<Long> users = new ArrayList();
         users.addAll(commentors);
