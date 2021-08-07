@@ -1,0 +1,18 @@
+2021-08-07 16:05:13.159  INFO 20701 --- [restartedMain] cn.xnmll.sbdemo.SbdemoApplication        : Starting SbdemoApplication using Java 1.8.0_292 on langchunyangdeMacBook-Air.local with PID 20701 (/Users/langchunyang/Documents/code_sbdemo/target/classes started by langchunyang in /Users/langchunyang/Documents/code_sbdemo)
+2021-08-07 16:05:13.160  INFO 20701 --- [restartedMain] cn.xnmll.sbdemo.SbdemoApplication        : No active profile set, falling back to default profiles: default
+2021-08-07 16:05:13.192  INFO 20701 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-08-07 16:05:13.192  INFO 20701 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-08-07 16:05:13.753  INFO 20701 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2021-08-07 16:05:13.759  INFO 20701 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-07 16:05:13.759  INFO 20701 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.48]
+2021-08-07 16:05:13.787  INFO 20701 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-07 16:05:13.787  INFO 20701 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 594 ms
+2021-08-07 16:05:13.807  INFO 20701 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-07 16:05:13.872  INFO 20701 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-07 16:05:13.880  INFO 20701 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:~/sbdemo'
+2021-08-07 16:05:14.161  INFO 20701 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-08-07 16:05:14.230  INFO 20701 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-08-07 16:05:14.251  INFO 20701 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2021-08-07 16:05:14.256  INFO 20701 --- [restartedMain] cn.xnmll.sbdemo.SbdemoApplication        : Started SbdemoApplication in 1.314 seconds (JVM running for 1.631)
+2021-08-07 16:12:22.248  INFO 20701 --- [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-07 16:12:22.452  INFO 20701 --- [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
